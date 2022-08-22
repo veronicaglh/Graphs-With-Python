@@ -1,8 +1,9 @@
 # This project will be able to draw the graphs of two mathematical functions at the same time.
 # The graph of one function will be drawn with purple color while the other one will be drawn with yellow color
 # It will also display a UI that will let users chose which graph to be drawn
+# The UI will be built using tkinter
 # For this project to work it is important to install the following packages.
-# To install packages use write the commands given below in your IDE'S terminal.
+# To install packages use write the commands given below in your IDE terminal.
 # pip install PyOpenGL PyOpenGL_accelerate
 # pip install glfw
 # pip install pygame
@@ -11,10 +12,19 @@
 # pip install PyOpenGL PyOpenGL_accelerate
 
 import numpy as np
+from PIL import Image, ImageTk
 import pygame
+from tkinter import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from pygame.locals import *
+import PIL.Image
+
+# PART I - TKINTER GUI
+myWindow = Tk()
+myWindow.title("Computer Graphics")
+myWindow.geometry('563x789')
+myWindow['background'] = '#BE8C5B'
 
 
 def init():
@@ -59,3 +69,5 @@ def main():
         pygame.display.flip()
         pygame.time.wait(10)
 main()
+
+myWindow.mainloop()
