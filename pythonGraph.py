@@ -63,4 +63,76 @@ usersFunction.place(x=90, y=490)
 # Now, all we are left with the tkinter part is  the "generate graph" button.
 # However we can not implement the button here. Why? Because when the button is clicked it will call the MAIN() function.
 # But the main function has not been written yet so the button has to be implemented after the main function is written
+
+
+# PART II - COMPUTATION
+# Computation of how the graph of the functions will be drawn once button is clicked
+# Y and Z need to be global so that we can access them in the draw function later
+global y
+global z
+global event
+
+
+def init():
+    pygame.init()
+    display = (500, 500)
+    pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
+    glClearColor(0.0, 0.0, 0.0, 1.0)
+    gluOrtho2D(-1.0, 1.0, -1.0, 1.0)
+
+
+# There are many ways to implement the DRAW() function
+# We could write a main function and a draw function for each pair of functions
+# In other words one draw function for A, another for B and  another for C
+# But its better if we don't repeat ourselves (DRY principle)
+# So chose to have one main and one draw function
+# the userFunction.get() method will read what the user has entered in the input field
+# if the user entered A it will assign the appropriate function to y and z.
+# Same thing for other inputs ,like B and C,of the user
+# after assigning the functions y and z appropriately it will then implement the code
+
+
+def draw():
+    glClear(GL_COLOR_BUFFER_BIT)
+    glColor3f(1.0, 0.0, 0.0)
+    x = np.linspace(-1, 1, 100)
+    if usersFunction.get() == "A":
+        y = np.sin(x)
+        z = np.cos(x)
+    elif usersFunction.get() == "B":
+        y = np.power(x, 3)
+        z = np.power(x, 4)
+    elif usersFunction.get() == "C":
+        y = np.power(x, 2)
+        z = np.tan(x)
+    glPointSize(10)
+    glBegin(GL_LINE_STRIP)
+    # for every pair (a, b) of the numbers in x, y
+    for a, b in zip(x, y):
+        # giving (a, b) to OpenGL to draw
+        glVertex2f(a, b)
+        glColor3f(1.0, 0.0, 1.0)  # y(x) will be purple
+    for c, d in zip(x, z):
+        glVertex2f(c, d)
+        glColor3f(1.0, 1.0, 0.0)  # z(x) will be Yellow
+    glEnd()
+    glFlush()
+
+def main():
+        init()
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+            draw()
+            pygame.display.flip()
+            pygame.time.wait(10)
+
+
+# Lets get back to that tkinter generate graph button
+# Tkinter "generate graph" Button
+generator = Button(myWindow, text="Generate Graph", font="Calibri 8 italic", command=main)
+generator.place(x=195, y=520)
+myWindow.mainloop()
 myWindow.mainloop()
