@@ -15,6 +15,7 @@ import numpy as np
 from PIL import Image, ImageTk
 import pygame
 from tkinter import *
+from tkinter import messagebox
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from pygame.locals import *
@@ -118,7 +119,10 @@ def draw():
     glEnd()
     glFlush()
 
+
 def main():
+    # Will only call the draw and init function if the user enters appropriate value(A B or C)
+    if usersFunction.get() == "A" or usersFunction.get() == "B" or usersFunction.get() == "C":
         init()
         while True:
             for event in pygame.event.get():
@@ -128,6 +132,12 @@ def main():
             draw()
             pygame.display.flip()
             pygame.time.wait(10)
+
+    # If the user enters inappropriate value this will be printed on warning message box
+    elif usersFunction.get() != "A" or usersFunction.get() != "B" or usersFunction.get() != "C":
+        def popup():
+            messagebox.showwarning("Warning Message", "Sorry you can only chose a function from the given pairs. Please enter either: A B or C ")
+        popup()
 
 
 # Lets get back to that tkinter generate graph button
