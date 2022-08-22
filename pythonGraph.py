@@ -56,5 +56,11 @@ title5a.place(x=90, y=430)
 title5b.place(x=90, y=450)
 title5c.place(x=90, y=470)
 
+# Making the input entry field for user to input function of their choice
+usersFunction = Entry(myWindow, width=30, border=3)
+usersFunction.place(x=90, y=490)
 
+# Now, all we are left with the tkinter part is  the "generate graph" button.
+# However we can not implement the button here. Why? Because when the button is clicked it will call the MAIN() function.
+# But the main function has not been written yet so the button has to be implemented after the main function is written
 myWindow.mainloop()
